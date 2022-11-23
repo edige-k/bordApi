@@ -9,7 +9,7 @@ use Spatie\Permission\Models\Role;
 class PermissionController extends Controller
 {
 
-
+// all permissions
     public function index(){
         $permissions = Permission::all();
 //        $permission = Role::find(1)->user;
@@ -18,10 +18,15 @@ class PermissionController extends Controller
         return response()->json($permissions);
     }
 
+
+    //one permission
     public function show($id){
         $permission = Permission::where('id',$id)->first();
         return response()->json($permission);
     }
+
+
+    //store permission
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -35,10 +40,9 @@ class PermissionController extends Controller
 
         return response()->json("Created Successfully");
     }
-
+    //assign role
     public function assignRole(Request $request, Permission $permission)
     {
-
         if ($permission->hasRole($request->role)) {
             return back()->with('message', 'Role exists.');
         }

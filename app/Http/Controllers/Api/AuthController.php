@@ -8,13 +8,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Sanctum\HasApiTokens;
 class AuthController extends Controller
 {
 
+    //construct
     public function __construct()
     {
         $this->middleware('auth:sanctum', ['except' => ['login','register']]);
     }
+
+    //login
     public function login(Request $request)
     {
         try {
@@ -57,6 +61,7 @@ class AuthController extends Controller
         }
     }
 
+    //register
     public function register(Request $request)
     {
         try {
@@ -98,9 +103,24 @@ class AuthController extends Controller
         }
     }
 
+    //me
     public function me(Request $request)
     {
         return $request->user();
+
+    }
+
+    //logout
+    public function logout(Request $request)
+    {
+
+        $request->user()->currentAccessToken()->delete();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Successfully logged out',
+        ]);
+
+
 
     }
     /**

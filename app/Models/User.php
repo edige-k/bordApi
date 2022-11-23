@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
-
+use App\Models\Organization;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable,HasApiTokens, HasRoles;
@@ -40,10 +40,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function role()
+    public function role__id()
     {
         return $this->belongsTo(Role::class);
     }
 
+    public function organization()
+    {
+        return $this->hasOne(Organization::class,'partner_id');
+    }
+
+    public function kitchens()
+    {
+        return $this->belongsToMany(Kitchen::class);
+    }
 }

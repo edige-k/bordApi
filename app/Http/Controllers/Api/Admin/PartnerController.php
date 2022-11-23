@@ -12,16 +12,23 @@ use DB;
 class PartnerController extends Controller
 {
 
+
+    //all partners
         public function index(){
             $partners = User::where('role_id',3)->get();
             return response()->json($partners);
         }
 
-    public function show($id){
 
+    //one partner
+    public function show($id){
         $partners = User::where('id',$id)->get();
         return response()->json($partners);
     }
+
+
+
+    //store partner
         public function store(Request $request){
             $validated= $request->validate([
                 'role_id'=>'required',
@@ -35,8 +42,14 @@ class PartnerController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
             ]);
-                $user->assignRole(['name' => 'partner']);
-                return response()->json($user);
+                if($request->role_id==2){
+                    $user->assignRole(['name' => 'manager']);
+//                    $user->givePermissionTo($request->permission);
+                }
+                elseif ($request->role_id==3){
+                    $user->assignRole(['name' => 'partner']);
+                    return response()->json($user);
+                }
 
 
 
