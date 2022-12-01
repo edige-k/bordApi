@@ -42,4 +42,12 @@ class Organization extends Model
     {
         return $this->belongsToMany(Kitchen::class);
     }
+    public function kinds(){
+        return $this->belongsToMany(Kind::class);
+
+    }
+    public function additionals(){
+        return $this->belongsToMany(Additional::class);
+
+    }
 }

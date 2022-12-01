@@ -9,10 +9,7 @@ use App\Models\User;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Validation;
+Use App\Models\KindOrganization;
 class OrganizationController extends Controller
 {
 
@@ -27,7 +24,11 @@ class OrganizationController extends Controller
     public function index()
     {
         $organization = User::find(Auth::user()->id)->organization;
-        $organization->city;
+        $organization->city->pluck('name');
+        $organization->kitchens;
+        $organization->kinds;
+        $organization->additionals;
+
         return response()->json([$organization]);
     }
 
@@ -57,24 +58,10 @@ class OrganizationController extends Controller
         return response()->json($organization);
     }
 
-    public function store_k_o(Request $request)
-    {
-        $organization = User::find(Auth::user()->id)->organization;
-
-        $validated = $request->validate([
-            'kitchen_id' => ['required','unique:kitchen_organization,kitchen_id'],
-        ]);
-        $organizations = Organization::all();
-        $kitchen_org = KitchenOrganization::all();
 
 
-          $kitchen_org->kitchen_id= $request->kitchen_id;
-          $kitchen_org->organization_id = $organization->id;
-          $organization->kitchens()->attach($kitchen_org->kitchen_id);
-          return response()->json($kitchen_org);
 
 
-    }
 
 
 }

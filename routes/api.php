@@ -9,7 +9,8 @@ use App\Http\Controllers\Api\Admin\PermissionController;
 use App\Http\Controllers\Api\Admin\RoleController;
 use App\Http\Controllers\Api\Partner\OrganizationController;
 use App\Http\Controllers\Api\Partner\KitchenController;
-
+use App\Http\Controllers\Api\Partner\KindOrgController;
+use App\Http\Controllers\Api\Partner\AdditionalController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -54,11 +55,7 @@ Route::middleware(['auth:sanctum', 'role:admin'])->name('admin.')->prefix('admin
     //ROLES
     Route::get('/roles',[RoleController::class,'index'])->name('role.index');
     Route::get('/role/{id}',[RoleController::class,'show'])->name('role.show');
-
     Route::post('/roles/{role}/permissions',[RoleController::class,'givePermission'])->name('role.givepermission');
-
-    //CITY
-
 });
 
 //PARTNER
@@ -67,7 +64,11 @@ Route::middleware(['auth:sanctum', 'role:partner'])->name('partner.')->prefix('p
     Route::get('/', [OrganizationController::class, 'index'])->name('index');
     Route::post('/organize_create',[OrganizationController::class,'store'])->name('organization.store');
     Route::post('/create/kitchens',[KitchenController::class,'store'])->name('kitchen.store');
-    Route::post('/select/kitchens',[OrganizationController::class,'store_k_o'])->name('kitchen.select');
+    Route::post('/select/kitchens',[KitchenController::class,'store_k_o'])->name('kitchen.select');
+    Route::post('/create/kinds',[KindOrgController::class,'store'])->name('kind.store');
+    Route::post('/select/kinds',[KindOrgController::class,'store_kind_org'])->name('kind.select');
+    Route::post('/create/additionals',[AdditionalController::class,'store'])->name('additional.store');
+    Route::post('/select/additionals',[AdditionalController::class,'store_additional_org'])->name('additional.select');
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

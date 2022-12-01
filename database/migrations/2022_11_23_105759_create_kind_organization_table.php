@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKitchenOrganizationTable extends Migration
+class CreateKindOrganizationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateKitchenOrganizationTable extends Migration
      */
     public function up()
     {
-        Schema::create('kitchen_organization', function (Blueprint $table) {
+        Schema::create('kind_organization', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kitchen_id')->unsigned()->constrained();
-            $table->foreignId('organization_id')->unsigned()->constrained();
+            $table->integer('kind_id')->unsigned();
+            $table->integer('organization_id')->unsigned();
+
         });
     }
 
@@ -27,6 +28,6 @@ class CreateKitchenOrganizationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kitchen_organization');
+        Schema::dropIfExists('kind_organization');
     }
 }

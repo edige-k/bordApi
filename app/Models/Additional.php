@@ -4,12 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Organization;
-class Kitchen extends Model
+
+class Additional extends Model
 {
     use HasFactory;
-
-
 
     protected $fillable = [
         'name',

@@ -15,8 +15,8 @@ class CreateOrganizationsTable extends Migration
     {
         Schema::create('organizations', function (Blueprint $table) {
             $table->id();
-            $table->integer('partner_id');
-            $table->integer('city_id');
+            $table->foreignId('partner_id')->constrained('users');
+            $table->foreignId('city_id')->constrained('cities');
             $table->string('name');
             $table->string('description');
             $table->integer('average_check');

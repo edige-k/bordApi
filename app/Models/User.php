@@ -9,10 +9,16 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
-use App\Models\Organization;
+
+
+
+
 class User extends Authenticatable
+
 {
     use HasFactory, Notifiable,HasApiTokens, HasRoles;
+
+
 
     /**
      * The attributes that are mass assignable.
@@ -31,7 +37,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
+    protected $guarded = [
+        'id',
+        'created_at',
+        'updated_at'
+    ];
     /**
      * The attributes that should be cast to native types.
      *
@@ -50,8 +60,5 @@ class User extends Authenticatable
         return $this->hasOne(Organization::class,'partner_id');
     }
 
-    public function kitchens()
-    {
-        return $this->belongsToMany(Kitchen::class);
-    }
+
 }

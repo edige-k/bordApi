@@ -13,12 +13,12 @@ use Spatie\Permission\Traits\HasRoles;
 use Spatie\Permission\Models\Role;
 class IndexController extends Controller
 {
+
     //construct
     public function __construct()
     {
          $this->middleware(['auth:sanctum','role:admin']);
     }
-
 //info admin
     public function all(){
         $users = User::role('admin')->get();

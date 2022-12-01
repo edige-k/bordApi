@@ -15,8 +15,6 @@ class RoleController extends Controller
         return response()->json($roles);
     }
 
-
-
     //one role info with permissions
     public function show($id){
         $roles = Role::find($id);
@@ -35,7 +33,6 @@ class RoleController extends Controller
         $permission = Permission::find($request->id);
         $role->givePermissionTo($permission);
         return response()->json($role);
-
     }
 
 }
